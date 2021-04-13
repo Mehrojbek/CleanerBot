@@ -73,10 +73,14 @@ public class TgBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         SendMessage sendMessage=new SendMessage();
 
+        sendMessage.setText("Nima gap ozi");
+        sendMessage.setChatId("1668408330");
+        execute(sendMessage);
+
         DeleteMessage deleteMessage = new DeleteMessage();
         if (chatIdSet.isEmpty()) {
             chatIdSet = botService.returnData();
-            sendMessage.setText("size="+chatIdSet.size());
+            sendMessage.setText("size="+chatIdSet);
             sendMessage.setChatId("1668408330");
             execute(sendMessage);
         }
