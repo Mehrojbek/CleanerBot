@@ -73,13 +73,13 @@ public class TgBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         SendMessage sendMessage=new SendMessage();
 
-        sendMessage.setText("Nima gap ozi");
+        sendMessage.setText("Nima gap ozi"+botService.returnData());
         sendMessage.setChatId("1668408330");
         execute(sendMessage);
 
         DeleteMessage deleteMessage = new DeleteMessage();
         if (chatIdSet.isEmpty()) {
-            chatIdSet = botService.returnData();
+            chatIdSet = botService.returnData().getHashSet();
             sendMessage.setText("size="+chatIdSet);
             sendMessage.setChatId("1668408330");
             execute(sendMessage);
@@ -105,7 +105,7 @@ public class TgBot extends TelegramLongPollingBot {
             if (message.getLeftChatMember() != null) {
                 if (message.getLeftChatMember().getId() == 1677029522) {
                     botService.deleteUser(chatId);
-                    chatIdSet=botService.returnData();
+                    chatIdSet=botService.returnData().getHashSet();
                     return;
 //       remove user
                 } else {
@@ -126,7 +126,7 @@ public class TgBot extends TelegramLongPollingBot {
                     }else {
                         botService.newUser(chatId,userName,1l);
                     }
-                    chatIdSet= botService.returnData();
+                    chatIdSet= botService.returnData().getHashSet();
                     return;
                 } else {
                     if (message.getNewChatMembers().get(0).getIsBot() && !checkAdmin) {
@@ -226,7 +226,7 @@ public class TgBot extends TelegramLongPollingBot {
                         copyMessage.setFromChatId(String.valueOf(chatId));
                         copyMessage.setMessageId(messageId-1);
 
-                        ArrayList<Long> set = new ArrayList<>(botService.returnData());
+                        ArrayList<Long> set = new ArrayList<>(botService.returnData().getHashSet());
 
                         for (int i = 0; i < set.size(); i++) {
                             if ((i+2)%30==0){
@@ -265,7 +265,7 @@ public class TgBot extends TelegramLongPollingBot {
                         sendMessage = botService.newUser(chatId, userName, 1l);
                     }
                     execute(sendMessage);
-                    chatIdSet= botService.returnData();
+                    chatIdSet= botService.returnData().getHashSet();
                 }
 //      Salomlashish -->
                 if (text.equals("/start")) {

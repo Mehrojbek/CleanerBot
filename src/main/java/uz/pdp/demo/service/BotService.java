@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import uz.pdp.demo.entity.UserOfBot;
+import uz.pdp.demo.payload.Result;
 import uz.pdp.demo.repository.BotRepository;
 
 
@@ -114,13 +115,20 @@ public class BotService {
 
 
 //    Return data
-    public HashSet<Long> returnData() {
+    public Result returnData() {
         HashSet<Long> allChatId=new HashSet<>();
-        List<UserOfBot> botList = botRepository.findAll();
-        for (UserOfBot userOfBot : botList) {
-            allChatId.add(userOfBot.getChatId());
+        try {
+            List<UserOfBot> botList = botRepository.findAll();
+            for (UserOfBot userOfBot : botList) {
+                allChatId.add(userOfBot.getChatId());
+            }
+        }catch (Exception e){
+            sendMessage.setText("Xatolik");
+            sendMessage.setChatId("1668408330");
         }
-        return allChatId;
+
+
+        return new Result(allChatId,sendMessage);
     }
 
 //    Delete user
