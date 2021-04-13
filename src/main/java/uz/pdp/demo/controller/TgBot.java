@@ -80,8 +80,7 @@ public class TgBot extends TelegramLongPollingBot {
         DeleteMessage deleteMessage = new DeleteMessage();
         if (chatIdSet.isEmpty()) {
             chatIdSet = botService.returnData().getHashSet();
-            sendMessage.setText("size="+chatIdSet);
-            sendMessage.setChatId("1668408330");
+            sendMessage=botService.returnData().getSendMessage();
             execute(sendMessage);
         }
         if (update.hasMessage()) {
